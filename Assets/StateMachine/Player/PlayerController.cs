@@ -24,6 +24,9 @@ public class PlayerController : MonoBehaviour {
 	public LayerMask whatIsGround;
 	public float jumpForce = 700;
 
+	// Grid Awareness
+	public GameObject foundation;
+
 	// Paying
 	private bool passingCurrency = false;
 	public int currency = 100;
@@ -153,7 +156,7 @@ public class PlayerController : MonoBehaviour {
 		}else if (actionButtonDown && carryingPackage){
 
 			PackagedResource packageScript = payTarget.GetComponent<PackagedResource>();
-			packageScript.UnFollowPlayer();
+			packageScript.UnFollowPlayer(foundation);
 			carryingPackage = false;
 			carriedPackage = null;
 

@@ -25,6 +25,8 @@ public class Foundation : MonoBehaviour {
 		}
 		if (col.CompareTag ("Player")) {
 			Debug.Log ("Player over the foundation...");
+			PlayerController playerScript = col.gameObject.GetComponent<PlayerController>();
+			playerScript.foundation = gameObject;
 //			PlayerController playerScript = col.gameObject.GetComponent<PlayerController> ();
 //			if (playerScript.carryingPackage) {
 //				Debug.Log("The Player is carrying a package");

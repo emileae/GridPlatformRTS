@@ -80,10 +80,15 @@ public class StatePatternNPC : MonoBehaviour {
 		yield return new WaitForSeconds(prefab.GetComponent<Structure>().buildTime);
 		GameObject instantiatedPrefab = Instantiate(prefab, target.position, Quaternion.identity) as GameObject;// cast it as a gameobject... otherwise seems to be trnasform.position bugs
 		Debug.Log("Structure located at: " + instantiatedPrefab.transform.position);
+
+		// deactivate the current package, since its now been replaced with the new building
+		DeactivateTarget();
+
 		toIdle = true;
 		// activate the structure's functionality
 		Structure structureScript = instantiatedPrefab.GetComponent<Structure>();
 		structureScript.Activate();
+
 	}
 
 }

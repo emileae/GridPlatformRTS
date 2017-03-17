@@ -35,9 +35,14 @@ public class PayTarget : MonoBehaviour {
 	{
 		if (col.CompareTag ("Player")) {
 			PlayerController playerScript = col.gameObject.GetComponent<PlayerController> ();
-			playerScript.payTarget = gameObject;
+
+			// TODO: revise whether cost should be shown when player is carrying a package
+			// Don't show the cost of an item if player is carrying a resource..... might want to chagne this
+			if (!playerScript.carryingPackage) {
+				playerScript.payTarget = gameObject;
+			}
 			if (showCost) {
-				ShowCost();
+				ShowCost ();
 			}
 		}
 	}
@@ -46,7 +51,9 @@ public class PayTarget : MonoBehaviour {
 	{
 		if (col.CompareTag ("Player")) {
 			PlayerController playerScript = col.gameObject.GetComponent<PlayerController> ();
-			playerScript.payTarget = null;
+			if (!playerScript.carryingPackage) {
+				playerScript.payTarget = null;
+			}
 			HideCost ();
 			if (playerPaying && amountPaid < cost) {
 				Debug.Log("Return player currency");

@@ -5,6 +5,7 @@ public class PackagedResource : MonoBehaviour {
 
 	private bool follow = false;
 	private GameObject followObject;
+	private GameObject foundation;
 
 	// Use this for initialization
 	void Start () {
@@ -16,6 +17,10 @@ public class PackagedResource : MonoBehaviour {
 	{
 		if (follow) {
 			transform.position = followObject.transform.position;
+		} else {
+			if (foundation != null) {
+				transform.position = foundation.transform.position;
+			}
 		}
 	}
 
@@ -24,7 +29,8 @@ public class PackagedResource : MonoBehaviour {
 		followObject = playerCarryLocation;
 	}
 
-	public void UnFollowPlayer(){
+	public void UnFollowPlayer(GameObject foundationObject){
+		foundation = foundationObject;
 		follow = false;
 	}
 
