@@ -157,6 +157,7 @@ public class PlayerController : MonoBehaviour {
 
 			PackagedResource packageScript = payTarget.GetComponent<PackagedResource>();
 			packageScript.UnFollowPlayer(foundation);
+			nearPackage = false;
 			carryingPackage = false;
 			carriedPackage = null;
 
@@ -192,22 +193,22 @@ public class PlayerController : MonoBehaviour {
 
 	void Pay ()
 	{
+		Debug.Log("passingCurrency? " + passingCurrency);
 		if (!passingCurrency) {
 			passingCurrency = true;
 			StartCoroutine(PassCoin());
 		}
 	}
 
-	IEnumerator PassCoin (){
+	IEnumerator PassCoin ()
+	{
 		yield return new WaitForSeconds (0.2f);
 		currency -= 1;
+		if (payTarget) {
+			PayTarget paymentScript = payTarget.GetComponent<PayTarget> ();
+			bool paid = paymentScript.Pay ();
+		}
 
-		PayTarget paymentScript = payTarget.GetComponent<PayTarget> ();
-		bool paid = paymentScript.Pay ();
-
-			// before statemachine
-//			Payment paymentScript = payTarget.GetComponent<Payment> ();
-//			bool paid = paymentScript.Pay ();
 		passingCurrency = false;
 	}
 

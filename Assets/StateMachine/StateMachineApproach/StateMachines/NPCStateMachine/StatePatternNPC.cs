@@ -13,6 +13,7 @@ public class StatePatternNPC : MonoBehaviour {
 	public Transform target;
 	public NPCMove moveController;
 	public bool arrived = false;
+	public int foundationIndex;// current foundation the NPC is standing on
 	public int platform = 0;// the platform NPC is standing on
 
 	[HideInInspector] public INPCState currentState;
@@ -55,6 +56,8 @@ public class StatePatternNPC : MonoBehaviour {
 	}
 
 	public void DeactivateTarget (){
+		// remove the target form the worklist so that no more NPCs are called to a target that isn't active
+		blackboard.RemoveFromWorkList(target.gameObject);
 		target.gameObject.SetActive(false);
 		target = null;
 	}
@@ -66,19 +69,31 @@ public class StatePatternNPC : MonoBehaviour {
 	public void CreateProcessedResource (int resourceType){
 		Debug.Log ("Instantiate a package for type: " + resourceType);
 		GameObject prefab = blackboard.GetProcessedPrefab(resourceType);
-		Instantiate(prefab, target.position, Quaternion.identity);
+		GameObject package = Instantiate(prefab, target.position, Quaternion.identity) as GameObject;
+		PayTarget payScript = package.GetComponent<PayTarget>();
+		payScript.foundationIndex = target.GetComponent<PayTarget>().foundationIndex;
 	}
 
-	public void Build(int targetType, int foundationType){
+	public void Build(NPCInstructions instructions){
 		Debug.Log ("Play the necessary animations for building: ");
-		Debug.Log ("Building for type: " + targetType + " and foundation: " + foundationType);
-		GameObject prefab = blackboard.GetBuildingPrefab(targetType, foundationType, platform);
-		StartCoroutine(BuildStructure(prefab));
+		Debug.Log ("Building with resource: " + instructions.resourceType + " and foundation: " + instructions.foundationType);
+		GameObject prefab = blackboard.GetBuildingPrefab(instructions.resourceType, instructions.foundationType, platform);
+		StartCoroutine(BuildStructure(prefab, instructions));
 	}
 
-	IEnumerator BuildStructure(GameObject prefab){
-		yield return new WaitForSeconds(prefab.GetComponent<Structure>().buildTime);
+	IEnumerator BuildStructure (GameObject prefab, NPCInstructions instructions)
+	{
+		yield return new WaitForSeconds (prefab.GetComponent<Structure> ().buildTime);
 		GameObject instantiatedPrefab = Instantiate(prefab, target.position, Quaternion.identity) as GameObject;// cast it as a gameobject... otherwise seems to be trnasform.position bugs
+
+		Debug.Log("Direction facing??? " + instructions.facing);
+
+		// TODO: clean this up... all models need to face left, then only flip if they're facing right... might want to make this more flexible
+		if (instructions.facing == 1) {
+			Vector3 theScale = instantiatedPrefab.transform.localScale;
+			theScale.x *= -1;
+			instantiatedPrefab.transform.localScale = theScale;
+		}
 		Debug.Log("Structure located at: " + instantiatedPrefab.transform.position);
 
 		// deactivate the current package, since its now been replaced with the new building

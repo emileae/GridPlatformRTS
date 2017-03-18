@@ -47,6 +47,7 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\GridLayout.cs" />
      <Compile Include="Assets\Scripts\GridUnit.cs" />
+     <Compile Include="Assets\Scripts\TriangleDebugger.cs" />
      <Compile Include="Assets\StateMachine\CameraFollow.cs" />
      <Compile Include="Assets\StateMachine\Player\PlayerController.cs" />
      <Compile Include="Assets\StateMachine\StateMachineApproach\Board.cs" />
@@ -66,6 +67,8 @@
      <Compile Include="Assets\StateMachine\StateMachineApproach\StateMachines\NPCStateMachine\ProcessState.cs" />
      <Compile Include="Assets\StateMachine\StateMachineApproach\StateMachines\NPCStateMachine\StatePatternNPC.cs" />
      <Compile Include="Assets\StateMachine\StateMachineApproach\Structures\FishingStructure.cs" />
+     <Compile Include="Assets\StateMachine\StateMachineApproach\Structures\HarbourStructure.cs" />
+     <Compile Include="Assets\StateMachine\StateMachineApproach\Structures\JettyStructure.cs" />
      <Compile Include="Assets\StateMachine\StateMachineApproach\Structures\Structure.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

@@ -16,12 +16,14 @@ public class BuildState : INPCState {
 	public void UpdateState ()
 	{
 		npc.busy = true;
+		Debug.Log("Is building?!?!?!?!?");
 		if (!building) {
 			Build ();
 		}
 
 		if (npc.toIdle) {
 			ToIdleState();
+			building = false;
 		}
 	}
 
@@ -52,7 +54,9 @@ public class BuildState : INPCState {
 
 	void Build(){
 		building = true;
+		// target here is the package
 		instructions = npc.target.GetComponent<NPCInstructions>();
-		npc.Build(instructions.resourceType, instructions.foundationType);
+		Debug.Log("Got instructions..... " + instructions.facing);
+		npc.Build(instructions);
 	}
 }

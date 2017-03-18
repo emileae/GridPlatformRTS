@@ -39,6 +39,7 @@ GameObject:
   - 4: {fileID: 4000010668120578}
   - 61: {fileID: 61000012143812276}
   - 114: {fileID: 114000013679220472}
+  - 114: {fileID: 114000013185950248}
   - 114: {fileID: 114000010572450642}
   m_Layer: 0
   m_Name: Grass
@@ -183,6 +184,22 @@ MonoBehaviour:
   showCost: 1
   playerPaying: 0
   amountPaid: 0
+--- !u!114 &114000013185950248
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013298434846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 340bf7be41fef46b3a3c5783906eacae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetType: 0
+  resourceType: 2
+  foundationType: 0
+  foundationIndex: 0
+  facing: 0
 --- !u!114 &114000013679220472
 MonoBehaviour:
   m_ObjectHideFlags: 1

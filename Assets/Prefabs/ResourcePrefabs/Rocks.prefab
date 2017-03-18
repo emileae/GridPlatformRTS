@@ -54,6 +54,7 @@ GameObject:
   - 4: {fileID: 4000012483024428}
   - 61: {fileID: 61000013088407538}
   - 114: {fileID: 114000011812353094}
+  - 114: {fileID: 114000010810512866}
   - 114: {fileID: 114000013522143574}
   m_Layer: 0
   m_Name: Rocks
@@ -165,6 +166,22 @@ MeshCollider:
   serializedVersion: 2
   m_Convex: 0
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &114000010810512866
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012580935984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 340bf7be41fef46b3a3c5783906eacae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetType: 0
+  resourceType: 1
+  foundationType: 0
+  foundationIndex: 0
+  facing: 0
 --- !u!114 &114000011812353094
 MonoBehaviour:
   m_ObjectHideFlags: 1

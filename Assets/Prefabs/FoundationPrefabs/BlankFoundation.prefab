@@ -123,7 +123,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 1}
   serializedVersion: 2
-  m_Size: {x: 1, y: 2}
+  m_Size: {x: 0.5, y: 2}
 --- !u!65 &65000012615915150
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -148,6 +148,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   foundationType: 0
+  facing: 0
 --- !u!114 &114000012518232728
 MonoBehaviour:
   m_ObjectHideFlags: 1

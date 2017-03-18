@@ -4,6 +4,10 @@ using System.Collections;
 public class Foundation : MonoBehaviour {
 
 	public int foundationType = 0;
+	public int foundationIndex = 0;
+
+	[Range(-1,1)]
+	public int facing = 0;
 	
 
 	// Use this for initialization
@@ -32,6 +36,13 @@ public class Foundation : MonoBehaviour {
 //				Debug.Log("The Player is carrying a package");
 //			}
 		}
+
+		if (col.CompareTag ("NPC")) {
+			Debug.Log ("NPC over the foundation...");
+			StatePatternNPC npcScript = col.gameObject.GetComponent<StatePatternNPC>();
+			npcScript.foundationIndex = foundationIndex;
+		}
+
 	}
 
 	void OnTriggerExit2D (Collider2D col)

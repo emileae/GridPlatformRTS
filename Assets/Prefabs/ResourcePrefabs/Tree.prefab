@@ -185,6 +185,7 @@ MonoBehaviour:
   resourceType: 0
   foundationType: 0
   foundationIndex: 0
+  facing: 0
 --- !u!114 &114000014164861658
 MonoBehaviour:
   m_ObjectHideFlags: 1

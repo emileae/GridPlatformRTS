@@ -220,7 +220,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 1}
   serializedVersion: 2
-  m_Size: {x: 3, y: 2}
+  m_Size: {x: 0.5, y: 2}
 --- !u!64 &64000011679308870
 MeshCollider:
   m_ObjectHideFlags: 1
@@ -268,3 +268,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   foundationType: 4
+  facing: 0

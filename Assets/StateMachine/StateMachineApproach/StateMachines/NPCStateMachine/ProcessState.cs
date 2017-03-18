@@ -19,6 +19,7 @@ public class ProcessState : INPCState {
 	{
 		Debug.Log ("Processing");
 		if (!startedProcessing) {
+			instructions = null;
 			startedProcessing = true;
 			ProcessTarget ();
 		}
@@ -56,6 +57,7 @@ public class ProcessState : INPCState {
 
 	void ProcessTarget (){
 		instructions = npc.target.GetComponent<NPCInstructions> ();
+		Debug.Log(" - - - - npc.target.name - - -" + npc.target.name);
 		if (instructions != null) {
 			npc.PlayProcessAnimation(instructions.resourceType);
 		} else {
@@ -65,9 +67,11 @@ public class ProcessState : INPCState {
 	}
 
 	void StopProcessing(){
+		Debug.Log("instructions.resourceType - b " + instructions.resourceType);
 		npc.CreateProcessedResource(instructions.resourceType);
 		npc.DeactivateTarget();
 		spentProcessingTime = 0f;
+		startedProcessing = false;
 		ToIdleState();
 	}
 

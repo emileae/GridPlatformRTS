@@ -10,7 +10,7 @@ public class NPCInstructions : MonoBehaviour {
 	//
 	public int targetType = 0;
 
-	// Process types
+	// Resource types
 	// also refer to Blackboard (Board.cs) to ensure consistency between types
 	// 0 -> wood
 	// 1 -> rock
@@ -20,7 +20,7 @@ public class NPCInstructions : MonoBehaviour {
 	// Package types
 //	public int packageType = 0;// build a fishing spot / build a torch / build a bridge / etc...
 
-	// Foundation type determines the type of building this resource can make
+	// Foundation type determines the type of building a resource can make
 	// 0 -> no foundation --> wood on p0 = fishing spot, wood on p1 = Fish Rack, rock = wall
 	// 1 -> shoreline/edge -> wood = jetty/boat / rock -> harbour / on higher platforms -> bridges
 	// 		( 1 -> long bridge -> on edge of higher platforms)
@@ -31,6 +31,13 @@ public class NPCInstructions : MonoBehaviour {
 	public int foundationType = 0;
 
 	public int foundationIndex;
+
+	// this is for the edges
+	// -1 -> left facing
+	// 0 -> middle of platform
+	// 1 -> right facing
+	[Range(-1,1)]
+	public int facing = 0;
 
 
 

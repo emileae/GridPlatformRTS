@@ -1,11 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class GridLayout : MonoBehaviour {
 
 	public int gridLength = 40;
 
 	public int yPos = 1;
+
+	//Array to hold all foundation base units
+	public List<GameObject> foundations = new List<GameObject>();// not need to have an array per platform
 
 	// Foundation prefabs
 	public GameObject blankFoundation;
@@ -51,7 +55,11 @@ public class GridLayout : MonoBehaviour {
 			if (i == 0) {
 				Debug.Log ("Shoreline @ index 0");
 				foundationWidth = 1;
-				Instantiate (shoreFoundation, position + new Vector3(0.5f * foundationWidth, 0, 0), Quaternion.identity);
+				GameObject leftShore = Instantiate (shoreFoundation, position + new Vector3(0.5f * foundationWidth, 0, 0), Quaternion.identity) as GameObject;
+				foundations.Add(leftShore);// Add to Foundation list
+				Foundation leftShoreFoundationScript = leftShore.GetComponent<Foundation>();
+				leftShoreFoundationScript.facing = -1;
+
 //				GameObject go = Instantiate (shoreFoundation, position, Quaternion.identity) as GameObject;
 //				Foundation foundationScript = go.GetComponent<Foundation>();
 //				i += 1;
@@ -59,36 +67,58 @@ public class GridLayout : MonoBehaviour {
 				if (gridNum >= 4) {
 					foundationWidth = 1;
 					Vector3 foundationPos = position + new Vector3(0.5f * foundationWidth, 0, 0);
-					Instantiate (blankFoundation, foundationPos, Quaternion.identity);
+					GameObject go = Instantiate (blankFoundation, foundationPos, Quaternion.identity) as GameObject;
+
+					foundations.Add(go);// Add to Foundation list
+					Foundation goFoundationScript = go.GetComponent<Foundation>();
+					goFoundationScript.foundationIndex = foundations.Count - 1;
+
 					// only on blank units can there be resources
 					int resourceProbability = Random.Range (0, 9);
 					if (resourceProbability < 6) {
 						if (resourceProbability < 2) {
-							Instantiate (tree, foundationPos, Quaternion.identity);
+							GameObject resource = Instantiate (tree, foundationPos, Quaternion.identity) as GameObject;
+							PayTarget payScript = resource.GetComponent<PayTarget>();
+							payScript.foundationIndex = foundations.Count - 1;
 						}else if(resourceProbability > 2 && resourceProbability < 4){
-							Instantiate (rock, foundationPos, Quaternion.identity);
+							GameObject resource = Instantiate (rock, foundationPos, Quaternion.identity) as GameObject;
+							PayTarget payScript = resource.GetComponent<PayTarget>();
+							payScript.foundationIndex = foundations.Count - 1;
 						}else if(resourceProbability > 4 && resourceProbability < 6){
-							Instantiate (grass, foundationPos, Quaternion.identity);
+							GameObject resource = Instantiate (grass, foundationPos, Quaternion.identity) as GameObject;
+							PayTarget payScript = resource.GetComponent<PayTarget>();
+							payScript.foundationIndex = foundations.Count - 1;
 						}	
 					}
 //					i += 1;
 				} else if (gridNum == 0) {
 					foundationWidth = 3;
-					Instantiate (wellFoundation, position + new Vector3(0.5f * foundationWidth, 0, 0), Quaternion.identity);
+					GameObject go = Instantiate (wellFoundation, position + new Vector3(0.5f * foundationWidth, 0, 0), Quaternion.identity) as GameObject;
+					foundations.Add(go);// Add to Foundation list
+					Foundation goFoundationScript = go.GetComponent<Foundation>();
+					goFoundationScript.foundationIndex = foundations.Count - 1;
 //					i += 3;
 				} else if (gridNum == 1) {
 					foundationWidth = 4;
-					Instantiate (gardenFoundation, position + new Vector3(0.5f * foundationWidth, 0, 0), Quaternion.identity);
+					GameObject go = Instantiate (gardenFoundation, position + new Vector3(0.5f * foundationWidth, 0, 0), Quaternion.identity) as GameObject;
+					foundations.Add(go);// Add to Foundation list
+					Foundation goFoundationScript = go.GetComponent<Foundation>();
+					goFoundationScript.foundationIndex = foundations.Count - 1;
 //					i += 4;
 				} else if (gridNum == 2) {
 					foundationWidth = 3;
-					Instantiate (houseFoundation, position + new Vector3(0.5f * foundationWidth, 0, 0), Quaternion.identity);
+					GameObject go = Instantiate (houseFoundation, position + new Vector3(0.5f * foundationWidth, 0, 0), Quaternion.identity) as GameObject;
+					foundations.Add(go);// Add to Foundation list
+					Foundation goFoundationScript = go.GetComponent<Foundation>();
+					goFoundationScript.foundationIndex = foundations.Count - 1;
 //					i += 3;
 				} else if (gridNum == 3) {
 					foundationWidth = 3;
 					// add 1 units to the x position to center the triple unit
-					Instantiate (lighthouseFoundation, position + new Vector3(0.5f * foundationWidth, 0, 0), Quaternion.identity);
-//					i += 3;// triple unit so it occupies 3 grid spaces
+					GameObject go = Instantiate (lighthouseFoundation, position + new Vector3(0.5f * foundationWidth, 0, 0), Quaternion.identity) as GameObject;
+					foundations.Add(go);// Add to Foundation list
+					Foundation goFoundationScript = go.GetComponent<Foundation>();
+					goFoundationScript.foundationIndex = foundations.Count - 1;
 				}
 			}
 
@@ -99,7 +129,11 @@ public class GridLayout : MonoBehaviour {
 		// add final shore after all foundations are added
 		Vector3 endShorePos = new Vector3 (i, yPos, 0);
 		Debug.Log("new grid length: " + i);
-		Instantiate (shoreFoundation, endShorePos + new Vector3(0.5f * 1, 0, 0), Quaternion.identity);
+		GameObject rightShore = Instantiate (shoreFoundation, endShorePos + new Vector3(0.5f * 1, 0, 0), Quaternion.identity) as GameObject;
+		Foundation rightShoreFoundationScript = rightShore.GetComponent<Foundation>();
+		rightShoreFoundationScript.facing = 1;
+		foundations.Add(rightShore);// Add to Foundation list
+		rightShoreFoundationScript.foundationIndex = foundations.Count - 1;
 		i += 1;// add the extra shore unit and use i to scale the base
 
 		// update base ground to fit the new grid length

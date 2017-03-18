@@ -62,11 +62,22 @@ public class Board : MonoBehaviour {
 		}
 	}
 
-	IEnumerator CallWorkers(){
-		yield return new WaitForSeconds(workerCallTime);
+	public void AddToWorkList (GameObject go){
+		workList.Add(go);
+	}
+	public void RemoveFromWorkList (GameObject go){
+		workList.Remove(go);
+	}
+
+	IEnumerator CallWorkers ()
+	{
+		yield return new WaitForSeconds (workerCallTime);
 		// TODO might want to think about how to order the worklist maybe not just call first item on work list?
-		CallNearestNPC (workList[0]);
-		Debug.Log("Calling NPC to work at this destination: " + workList[0].transform.position);
+		if (workList.Count > 0) {
+			CallNearestNPC (workList [0]);
+			Debug.Log("Calling NPC to work at this destination: " + workList[0].transform.position);
+		}
+		callingWorkers = false;
 	}
 
 	// in Statemachine version --> called from PayTarget.cs
@@ -91,6 +102,8 @@ public class Board : MonoBehaviour {
 
 		if (foundAvailableNPC) {
 			npcScripts[nearestNPCIndex].target = destination.transform;
+			Debug.Log("Board.cs - tell NPC to calculate the path to its target...");
+			Debug.Log("Index difference is: " + (npcScripts[nearestNPCIndex].foundationIndex - destination.GetComponent<PayTarget>().foundationIndex));
 		}
 
 	}
@@ -101,16 +114,8 @@ public class Board : MonoBehaviour {
 	// type 2 -> bush
 	public GameObject GetProcessedPrefab (int resourceType)
 	{
+		Debug.Log("Get package prefab..." + resourceType);
 		return packages[resourceType];
-//		switch (processType) {
-//			case 0:
-//				return package0;
-//				break;
-//			default:
-//				return null;
-//				Debug.Log("Blackboard not returning proper package process type");
-//				break;
-//		}
 	}
 
 	public GameObject GetBuildingPrefab (int resourceType, int foundationType, int platform)

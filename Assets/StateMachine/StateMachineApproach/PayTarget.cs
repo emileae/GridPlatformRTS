@@ -6,6 +6,8 @@ public class PayTarget : MonoBehaviour {
 
 	private Board blackboard;
 
+	public int foundationIndex;
+
 	public bool payable = true;
 	public int cost = 1;
 	public GameObject costIndicator;
@@ -115,7 +117,8 @@ public class PayTarget : MonoBehaviour {
 				playerPaying = false;
 				payable = false;
 				Debug.Log ("Take action on payment.....");
-				blackboard.CallNearestNPC(gameObject);
+//				blackboard.CallNearestNPC(gameObject);
+				blackboard.AddToWorkList(gameObject);
 				return false;
 			}
 		} else {

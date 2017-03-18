@@ -74,7 +74,9 @@ public class GoState : INPCState {
 				Arrived ();
 			}
 			float distanceFromTarget = (npc.gameObject.transform.position - npc.target.position).magnitude;
-//			Debug.Log("distanceFromTarget: " + distanceFromTarget + "  - " + (distanceFromTarget < npc.moveController.stopDistance));
+
+//			Debug.Log("Check Arrival distanceFromTarget: " + distanceFromTarget + "  - " + (distanceFromTarget < npc.moveController.stopDistance));
+
 			if (distanceFromTarget < npc.moveController.stopDistance) {
 				npc.arrived = true;
 				npc.moveController.direction = 0;
